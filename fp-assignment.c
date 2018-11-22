@@ -63,12 +63,18 @@ float_t fp_encode(float b) {
 //
 //
     unsigned int sign = name.intval >> 31;
+    printf("%u \n", sign);
+
 
     name.intval = name.intval & ~(1 << 31);
     unsigned int exp = name.intval >> 23;
+    printf("%u \n", exp);
 
 
-    unsigned int mant;
+    name.intval = name.intval << 8;
+    name.intval = name.intval & ~(1 << 31);
+    name.intval = name.intval >> 8;
+    unsigned int mant = name.intval;
 
 
 
@@ -79,7 +85,6 @@ float_t fp_encode(float b) {
     // machine will affect the way you want to interpret the float.
 
     float_t answer = {sign, exp, mant};
-    // TODO: Your implementation here
     return answer;
 }
 
@@ -91,7 +96,7 @@ float fp_decode(float_t a) {
     name.intval = name.intval | (a.exponent << 23);
     name.intval = name.intval | (a.sign << 31);
 
-
+    printf("%u \n", name.intval);
     return name.floatval;
 }
 

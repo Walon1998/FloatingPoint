@@ -79,7 +79,9 @@ bool test_all_add(void) {
 int main() {
   test_all_mult();
   test_all_add();
-  printf("%e \n", fp_decode(get_smallest_denormalized()) );
+
+  float_t test = fp_encode(33.3);
+  printf("%e \n", fp_decode(test) );
 
 
   return 0;
