@@ -59,25 +59,12 @@ float_t get_smallest_denormalized(void) {
 float_t fp_encode(float b) {
     union float_converter name;
     name.floatval = b;
-//
-//
-//
+
     unsigned int sign = name.intval >> 31;
-    printf("Sign: %u \n", sign);
 
+    unsigned int exp = name.intval >> 23 & (0xFF);
 
-    name.intval = name.intval & ~(1 << 31);
-    unsigned int exp = name.intval >> 23;
-    printf("Exp: %u  bzw. %u\n", exp, exp - 127);
-
-
-    name.intval = name.intval << 8;
-    name.intval = name.intval & ~(1 << 31);
-    name.intval = name.intval >> 8;
-    unsigned int mant = name.intval;
-
-    printf("Mant: %u \n", mant);
-
+    unsigned int mant = name.intval & (0x007FFFFF);
 
 
     // TIP: You may want to use a union with a uint32_t, shift and bitwise
@@ -94,12 +81,12 @@ float fp_decode(float_t a) {
     name.intval = 0;
 
     name.intval = name.intval | a.mantissa;
-    printf("Mant: %u \n", name.intval);
+//    printf("Mant: %u \n", name.intval);
     name.intval = name.intval | (a.exponent << 23);
-    printf("Mant + Exp: %u \n", name.intval);
+//    printf("Mant + Exp: %u \n", name.intval);
 
     name.intval = name.intval | (a.sign << 31);
-    printf("Mant + Exp + Sign: %u \n", name.intval);
+//    printf("Mant + Exp + Sign: %u \n", name.intval);
 
     return name.floatval;
 }
@@ -121,6 +108,7 @@ float_t fp_negate(float_t a) {
 
 /* d) Add two float_t numbers, return the result */
 float_t fp_add(float_t a, float_t b) {
+
     // TIP: Refer to the lecture slides about floating point numbers to implement
     // this operation.  You may also want to implement functions for
     // denormalization, normalization, round_even to implement this operation.
@@ -137,14 +125,18 @@ float_t fp_add(float_t a, float_t b) {
 
 /* e) Multiply two float_t numbers, return the result */
 float_t fp_mul(float_t a, float_t b) {
-    printf("%u \n", a.sign);
-    printf("%u \n", b.sign);
     unsigned int sign = a.sign ^b.sign;
-    printf("Sign: %u \n", sign);
-    unsigned int exp = a.exponent + b.exponent - 127;
-    printf("Exp: %u  bzw. %u\n", exp, exp - 127);
-    unsigned int mant = a.mantissa * b.mantissa;
+    unsigned int exp = a.exponent + b.exponent - 0x7F;
+
+    unsigned long long mant = a.mantissa * b.mantissa;
+
+
+
+    printf("Manta: %u \n", a.mantissa);
+    printf("Mantb: %u \n", b.mantissa);
+
     printf("Mant: %u \n", mant);
+    printf("Exp: %u  bzw. %u\n", exp, exp - 127);
 
 //    if (exp > 127) {
 //        exp = 255;

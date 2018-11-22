@@ -66,9 +66,9 @@ static bool test_fp_mul(float f1, float f2) {
 */
 
 bool test_all_mult(void) {
-//    test_fp_mul(8.2, 4.3);
-    test_fp_mul(1e120, 1.0);
-//    test_fp_mul(2348.2, 324.3422);
+    test_fp_mul(8.2, 4.3);
+    test_fp_mul(4, 4);
+    test_fp_mul(2348.2, 324.3422);
     return false;
 }
 
