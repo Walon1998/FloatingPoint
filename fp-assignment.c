@@ -85,11 +85,14 @@ float_t fp_encode(float b) {
 
 /* b) Given a float_t struct, returns the equivalent float C data type */
 float fp_decode(float_t a) {
-    // TIP: Just revert what you have done in above function. Easy!!!
+    union float_converter name;
+    name.intval = 0;
+    name.intval = name.intval | a.mantissa;
+    name.intval = name.intval | (a.exponent << 23);
+    name.intval = name.intval | (a.sign << 31);
 
-    float answer = 42;
-    // TODO: Your implementation here
-    return answer;
+
+    return name.floatval;
 }
 
 /* c) Compute -a, return the result */

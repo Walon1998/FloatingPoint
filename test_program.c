@@ -79,5 +79,8 @@ bool test_all_add(void) {
 int main() {
   test_all_mult();
   test_all_add();
+  printf("%e \n", fp_decode(get_smallest_denormalized()) );
+
+
   return 0;
 }
