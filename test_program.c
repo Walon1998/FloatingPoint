@@ -15,48 +15,48 @@ verify
 */
 
 static bool test_fp_add(float f1, float f2) {
-  bool retval = false;
+    bool retval = false;
 
-  float_t v1 = fp_encode(f1);
-  float_t v2 = fp_encode(f2);
+    float_t v1 = fp_encode(f1);
+    float_t v2 = fp_encode(f2);
 
-  float_t ans = fp_add(v1, v2);
+    float_t ans = fp_add(v1, v2);
 
-  float c_ans = f1 + f2;
-  float m_ans = fp_decode(ans);
+    float c_ans = f1 + f2;
+    float m_ans = fp_decode(ans);
 
-  if (c_ans == m_ans) {
-    printf("(%f + %f = %f) == %f: PASSED\n", f1, f2, c_ans, m_ans);
-    retval = true;
+    if (c_ans == m_ans) {
+        printf("(%f + %f = %f) == %f: PASSED\n", f1, f2, c_ans, m_ans);
+        retval = true;
+        return retval;
+    } else {
+        printf("(%f + %f = %f) != %f: FAILED\n", f1, f2, c_ans, m_ans);
+        retval = false;
+        return retval;
+    }
     return retval;
-  } else {
-    printf("(%f + %f = %f) != %f: FAILED\n", f1, f2, c_ans, m_ans);
-    retval = false;
-    return retval;
-  }
-  return retval;
 }
 
 static bool test_fp_mul(float f1, float f2) {
-  bool retval = false;
+    bool retval = false;
 
-  float_t v1 = fp_encode(f1);
-  float_t v2 = fp_encode(f2);
-  float_t ans = fp_mul(v1, v2);
-  float m_ans = fp_decode(ans);
+    float_t v1 = fp_encode(f1);
+    float_t v2 = fp_encode(f2);
+    float_t ans = fp_mul(v1, v2);
+    float m_ans = fp_decode(ans);
 
-  float c_ans = f1 * f2;
-  if (c_ans != m_ans) {
-    printf("(%f * %f = %f) != %f: FAILED\n", f1, f2, c_ans, m_ans);
-    retval = false;
+    float c_ans = f1 * f2;
+    if (c_ans != m_ans) {
+        printf("(%f * %f = %f) != %f: FAILED\n", f1, f2, c_ans, m_ans);
+        retval = false;
+        return retval;
+    } else {
+        printf("(%f * %f = %f) == %f: PASSED\n", f1, f2, c_ans, m_ans);
+        retval = true;
+        return retval;
+    }
+
     return retval;
-  } else {
-    printf("(%f * %f = %f) == %f: PASSED\n", f1, f2, c_ans, m_ans);
-    retval = true;
-    return retval;
-  }
-
-  return retval;
 }
 
 /*
@@ -65,24 +65,24 @@ static bool test_fp_mul(float f1, float f2) {
 */
 
 bool test_all_mult(void) {
-  test_fp_mul(8.2, 4.3);
-  test_fp_mul(2348.2, 324.3422);
-  return false;
+    test_fp_mul(8.2, 4.3);
+    test_fp_mul(2348.2, 324.3422);
+    return false;
 }
 
 bool test_all_add(void) {
-  test_fp_add(4.2, 4.3);
-  test_fp_add(3.2, 4.2);
-  return false;
+    test_fp_add(4.2, 4.3);
+    test_fp_add(3.2, 4.2);
+    return false;
 }
 
 int main() {
-  test_all_mult();
-  test_all_add();
+    test_all_mult();
+    test_all_add();
 
-  float_t test = fp_encode(33.3);
-  printf("%e \n", fp_decode(test) );
+    float_t test = fp_encode(33.3);
+    printf("%e \n", fp_decode(fp_negate(test)));
 
 
-  return 0;
+    return 0;
 }

@@ -102,11 +102,16 @@ float fp_decode(float_t a) {
 
 /* c) Compute -a, return the result */
 float_t fp_negate(float_t a) {
+
     // TIP: This is be the easiest operation you will be implementing. You just
     // need to flip the sign.
+    unsigned int sign = 1;
 
-    float_t answer = example_val;
-    // TODO: Your implementation here
+    if (a.sign == 1) {
+        sign = 0;
+    }
+
+    float_t answer = {sign, a.exponent, a.mantissa};
     return answer;
 }
 
