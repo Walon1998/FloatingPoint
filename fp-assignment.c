@@ -132,11 +132,11 @@ float_t fp_mul(float_t a, float_t b) {
 
 
 
-    printf("Manta: %u \n", a.mantissa);
-    printf("Mantb: %u \n", b.mantissa);
-
-    printf("Mant: %u \n", mant);
-    printf("Exp: %u  bzw. %u\n", exp, exp - 127);
+//    printf("Manta: %u \n", a.mantissa);
+//    printf("Mantb: %u \n", b.mantissa);
+//
+//    printf("Mant: %u \n", mant);
+//    printf("Exp: %u  bzw. %u\n", exp, exp - 127);
 
 //    if (exp > 127) {
 //        exp = 255;

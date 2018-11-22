@@ -43,9 +43,9 @@ static bool test_fp_mul(float f1, float f2) {
     float_t v1 = fp_encode(f1);
     float_t v2 = fp_encode(f2);
     float_t ans = fp_mul(v1, v2);
-    printf("%u \n", ans.sign);
+//    printf("%u \n", ans.sign);
     float m_ans = fp_decode(ans);
-    printf("%f \n", m_ans);
+//    printf("%f \n", m_ans);
     float c_ans = f1 * f2;
     if (c_ans != m_ans) {
         printf("(%f * %f = %f) != %f: FAILED\n", f1, f2, c_ans, m_ans);
