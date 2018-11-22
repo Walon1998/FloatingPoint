@@ -63,12 +63,12 @@ float_t fp_encode(float b) {
 //
 //
     unsigned int sign = name.intval >> 31;
-    printf("%u \n", sign);
+    printf("Sign: %u \n", sign);
 
 
     name.intval = name.intval & ~(1 << 31);
     unsigned int exp = name.intval >> 23;
-    printf("%u \n", exp);
+    printf("Exp: %u  bzw. %u\n", exp, exp - 127);
 
 
     name.intval = name.intval << 8;
@@ -76,7 +76,7 @@ float_t fp_encode(float b) {
     name.intval = name.intval >> 8;
     unsigned int mant = name.intval;
 
-
+    printf("Mant: %u \n", mant);
 
 
 
@@ -92,11 +92,15 @@ float_t fp_encode(float b) {
 float fp_decode(float_t a) {
     union float_converter name;
     name.intval = 0;
-    name.intval = name.intval | a.mantissa;
-    name.intval = name.intval | (a.exponent << 23);
-    name.intval = name.intval | (a.sign << 31);
 
-    printf("%u \n", name.intval);
+    name.intval = name.intval | a.mantissa;
+    printf("Mant: %u \n", name.intval);
+    name.intval = name.intval | (a.exponent << 23);
+    printf("Mant + Exp: %u \n", name.intval);
+
+    name.intval = name.intval | (a.sign << 31);
+    printf("Mant + Exp + Sign: %u \n", name.intval);
+
     return name.floatval;
 }
 
@@ -133,12 +137,24 @@ float_t fp_add(float_t a, float_t b) {
 
 /* e) Multiply two float_t numbers, return the result */
 float_t fp_mul(float_t a, float_t b) {
+    printf("%u \n", a.sign);
+    printf("%u \n", b.sign);
+    unsigned int sign = a.sign ^b.sign;
+    printf("Sign: %u \n", sign);
+    unsigned int exp = a.exponent + b.exponent - 127;
+    printf("Exp: %u  bzw. %u\n", exp, exp - 127);
+    unsigned int mant = a.mantissa * b.mantissa;
+    printf("Mant: %u \n", mant);
+
+//    if (exp > 127) {
+//        exp = 255;
+//    }
+
     // TIP:  Just like in the ``Addition`` operation, mantissa here is the
     // fraction.  You can't use floating point operations to multiply mentisa's.
     // Don't worry about all the corner cases in the beginning, you can extend
     // your solution to incorporate all corner cases later.
 
-    float_t answer = example_val;
-    // TODO: Your implementation here
+    float_t answer = {sign, exp, mant};
     return answer;
 }
